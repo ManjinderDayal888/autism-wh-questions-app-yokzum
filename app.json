@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Natively",
-    "slug": "Natively",
+    "name": "WH Questions App for Autism",
+    "slug": "WH Questions App for Autism",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/natively-dark.png",
@@ -43,5 +43,6 @@
     "extra": {
       "router": {}
     }
-  }
+  },
+  "scheme": "WH Questions App for Autism"
 }
