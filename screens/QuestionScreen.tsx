@@ -15,6 +15,8 @@ import AnswerCard from '@/components/AnswerCard';
 import { colors } from '@/styles/commonStyles';
 import { updateProgress } from '@/utils/progressStorage';
 import * as Haptics from 'expo-haptics';
+import * as Speech from 'expo-speech';
+import { IconSymbol } from '@/components/IconSymbol';
 
 export default function QuestionScreen() {
   const router = useRouter();
@@ -25,6 +27,7 @@ export default function QuestionScreen() {
   const [selectedAnswerId, setSelectedAnswerId] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [categoryQuestions, setCategoryQuestions] = useState<Question[]>([]);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   useEffect(() => {
     const filtered = questions.filter((q) => q.category === category);
@@ -32,7 +35,36 @@ export default function QuestionScreen() {
     console.log(`Loaded ${filtered.length} questions for category: ${category}`);
   }, [category]);
 
+  useEffect(() => {
+    return () => {
+      Speech.stop();
+    };
+  }, []);
+
   const currentQuestion = categoryQuestions[currentQuestionIndex];
+
+  const speakText = async (text: string) => {
+    try {
+      const isSpeakingNow = await Speech.isSpeakingAsync();
+      if (isSpeakingNow) {
+        await Speech.stop();
+        setIsSpeaking(false);
+      } else {
+        setIsSpeaking(true);
+        Speech.speak(text, {
+          language: 'en-US',
+          pitch: 1.0,
+          rate: 0.85,
+          onDone: () => setIsSpeaking(false),
+          onStopped: () => setIsSpeaking(false),
+          onError: () => setIsSpeaking(false),
+        });
+      }
+    } catch (error) {
+      console.log('Error with speech:', error);
+      setIsSpeaking(false);
+    }
+  };
 
   const handleAnswerPress = (answerId: string) => {
     if (showResult) return;
@@ -45,15 +77,23 @@ export default function QuestionScreen() {
     if (selectedAnswer) {
       if (selectedAnswer.isCorrect) {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        speakText(`Correct! ${selectedAnswer.text}`);
       } else {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        const correctAnswer = currentQuestion.answers.find((a) => a.isCorrect);
+        if (correctAnswer) {
+          speakText(`The correct answer is ${correctAnswer.text}`);
+        }
       }
 
       updateProgress(selectedAnswer.isCorrect, currentQuestion.category, currentQuestion.type);
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    await Speech.stop();
+    setIsSpeaking(false);
+    
     if (currentQuestionIndex < categoryQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedAnswerId(null);
@@ -63,7 +103,9 @@ export default function QuestionScreen() {
     }
   };
 
-  const handleBack = () => {
+  const handleBack = async () => {
+    await Speech.stop();
+    setIsSpeaking(false);
     router.back();
   };
 
@@ -94,8 +136,21 @@ export default function QuestionScreen() {
         </View>
 
         <View style={styles.questionContainer}>
-          <View style={styles.categoryBadge}>
-            <Text style={styles.categoryText}>{category.toUpperCase()}</Text>
+          <View style={styles.questionHeader}>
+            <View style={styles.categoryBadge}>
+              <Text style={styles.categoryText}>{category.toUpperCase()}</Text>
+            </View>
+            <TouchableOpacity
+              style={[styles.audioButton, isSpeaking && styles.audioButtonActive]}
+              onPress={() => speakText(currentQuestion.question)}
+            >
+              <IconSymbol
+                ios_icon_name={isSpeaking ? 'speaker.wave.3.fill' : 'speaker.wave.2.fill'}
+                android_material_icon_name={isSpeaking ? 'volume_up' : 'volume_up'}
+                size={24}
+                color={isSpeaking ? colors.primary : colors.text}
+              />
+            </TouchableOpacity>
           </View>
           <Text style={styles.questionText}>{currentQuestion.question}</Text>
         </View>
@@ -108,6 +163,7 @@ export default function QuestionScreen() {
                 onPress={() => handleAnswerPress(answer.id)}
                 isSelected={selectedAnswerId === answer.id}
                 showResult={showResult}
+                onAudioPress={() => speakText(answer.text)}
               />
             </React.Fragment>
           ))}
@@ -184,18 +240,32 @@ const styles = StyleSheet.create({
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
     elevation: 3,
   },
+  questionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
   categoryBadge: {
-    alignSelf: 'flex-start',
     backgroundColor: colors.accent,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 12,
-    marginBottom: 16,
   },
   categoryText: {
     fontSize: 12,
     fontWeight: '700',
     color: colors.text,
+  },
+  audioButton: {
+    padding: 8,
+    borderRadius: 20,
+    backgroundColor: colors.background,
+    boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)',
+    elevation: 2,
+  },
+  audioButtonActive: {
+    backgroundColor: colors.accent,
   },
   questionText: {
     fontSize: 22,

@@ -2,7 +2,7 @@
 import { Question } from '@/types/Question';
 
 export const questions: Question[] = [
-  // HOME - WHO Questions
+  // HOME - WHO Questions (3)
   {
     id: 'home-who-1',
     category: 'home',
@@ -67,7 +67,39 @@ export const questions: Question[] = [
       },
     ],
   },
-  // HOME - WHAT Questions
+  {
+    id: 'home-who-3',
+    category: 'home',
+    type: 'who',
+    question: 'Who helps you get dressed?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Parent',
+        imageUrl: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Television',
+        imageUrl: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Plant',
+        imageUrl: 'https://images.unsplash.com/photo-1463320726281-696a485928c7?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Book',
+        imageUrl: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // HOME - WHAT Questions (3)
   {
     id: 'home-what-1',
     category: 'home',
@@ -132,7 +164,39 @@ export const questions: Question[] = [
       },
     ],
   },
-  // HOME - WHERE Questions
+  {
+    id: 'home-what-3',
+    category: 'home',
+    type: 'what',
+    question: 'What do you eat breakfast with?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Spoon',
+        imageUrl: 'https://images.unsplash.com/photo-1568737356219-e9d5c0f6b1e5?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Hammer',
+        imageUrl: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Scissors',
+        imageUrl: 'https://images.unsplash.com/photo-1562690868-60bbe7293e94?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Brush',
+        imageUrl: 'https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // HOME - WHERE Questions (3)
   {
     id: 'home-where-1',
     category: 'home',
@@ -165,7 +229,265 @@ export const questions: Question[] = [
       },
     ],
   },
-  // SCHOOL - WHO Questions
+  {
+    id: 'home-where-2',
+    category: 'home',
+    type: 'where',
+    question: 'Where do you watch TV?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Living Room',
+        imageUrl: 'https://images.unsplash.com/photo-1556912173-46c336c7fd55?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Closet',
+        imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Roof',
+        imageUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Basement',
+        imageUrl: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'home-where-3',
+    category: 'home',
+    type: 'where',
+    question: 'Where do you keep your clothes?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Closet',
+        imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Oven',
+        imageUrl: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Mailbox',
+        imageUrl: 'https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Sink',
+        imageUrl: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // HOME - WHEN Questions (3)
+  {
+    id: 'home-when-1',
+    category: 'home',
+    type: 'when',
+    question: 'When do you eat breakfast?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Morning',
+        imageUrl: 'https://images.unsplash.com/photo-1495954484750-af469f2f9be5?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Night',
+        imageUrl: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Afternoon',
+        imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Midnight',
+        imageUrl: 'https://images.unsplash.com/photo-1532693322450-2cb5c511067d?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'home-when-2',
+    category: 'home',
+    type: 'when',
+    question: 'When do you go to bed?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Night',
+        imageUrl: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Morning',
+        imageUrl: 'https://images.unsplash.com/photo-1495954484750-af469f2f9be5?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Lunchtime',
+        imageUrl: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Sunrise',
+        imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'home-when-3',
+    category: 'home',
+    type: 'when',
+    question: 'When do you brush your teeth?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Morning and Night',
+        imageUrl: 'https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Only at Lunch',
+        imageUrl: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Never',
+        imageUrl: 'https://images.unsplash.com/photo-1532693322450-2cb5c511067d?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Only on Weekends',
+        imageUrl: 'https://images.unsplash.com/photo-1533854775446-95c4609da544?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // HOME - WHY Questions (3)
+  {
+    id: 'home-why-1',
+    category: 'home',
+    type: 'why',
+    question: 'Why do you wear a coat?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'To stay warm',
+        imageUrl: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'To swim',
+        imageUrl: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'To fly',
+        imageUrl: 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'To eat',
+        imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'home-why-2',
+    category: 'home',
+    type: 'why',
+    question: 'Why do you wash your hands?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'To stay clean',
+        imageUrl: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'To get dirty',
+        imageUrl: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'To paint',
+        imageUrl: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'To play',
+        imageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'home-why-3',
+    category: 'home',
+    type: 'why',
+    question: 'Why do you eat food?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'To grow strong',
+        imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'To sleep',
+        imageUrl: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'To watch TV',
+        imageUrl: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'To read',
+        imageUrl: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // SCHOOL - WHO Questions (3)
   {
     id: 'school-who-1',
     category: 'school',
@@ -230,7 +552,39 @@ export const questions: Question[] = [
       },
     ],
   },
-  // SCHOOL - WHAT Questions
+  {
+    id: 'school-who-3',
+    category: 'school',
+    type: 'who',
+    question: 'Who helps you in the library?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Librarian',
+        imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Computer',
+        imageUrl: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Chair',
+        imageUrl: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Window',
+        imageUrl: 'https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // SCHOOL - WHAT Questions (3)
   {
     id: 'school-what-1',
     category: 'school',
@@ -295,7 +649,39 @@ export const questions: Question[] = [
       },
     ],
   },
-  // SCHOOL - WHERE Questions
+  {
+    id: 'school-what-3',
+    category: 'school',
+    type: 'what',
+    question: 'What do you carry books in?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Backpack',
+        imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Shoe',
+        imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Hat',
+        imageUrl: 'https://images.unsplash.com/photo-1521369909029-2afed882baee?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Cup',
+        imageUrl: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // SCHOOL - WHERE Questions (3)
   {
     id: 'school-where-1',
     category: 'school',
@@ -328,7 +714,265 @@ export const questions: Question[] = [
       },
     ],
   },
-  // OTHER - WHO Questions
+  {
+    id: 'school-where-2',
+    category: 'school',
+    type: 'where',
+    question: 'Where do you play sports?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Gym',
+        imageUrl: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Classroom',
+        imageUrl: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Office',
+        imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Bathroom',
+        imageUrl: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'school-where-3',
+    category: 'school',
+    type: 'where',
+    question: 'Where do you find books?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Library',
+        imageUrl: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Parking Lot',
+        imageUrl: 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Swimming Pool',
+        imageUrl: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Cafeteria',
+        imageUrl: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // SCHOOL - WHEN Questions (3)
+  {
+    id: 'school-when-1',
+    category: 'school',
+    type: 'when',
+    question: 'When do you go to school?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Weekday Morning',
+        imageUrl: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Weekend',
+        imageUrl: 'https://images.unsplash.com/photo-1533854775446-95c4609da544?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Night Time',
+        imageUrl: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Vacation',
+        imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'school-when-2',
+    category: 'school',
+    type: 'when',
+    question: 'When do you have recess?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'During School',
+        imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'At Bedtime',
+        imageUrl: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'On Vacation',
+        imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'At Dinner',
+        imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'school-when-3',
+    category: 'school',
+    type: 'when',
+    question: 'When do you do homework?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'After School',
+        imageUrl: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'During Sleep',
+        imageUrl: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'While Eating',
+        imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'During Recess',
+        imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // SCHOOL - WHY Questions (3)
+  {
+    id: 'school-why-1',
+    category: 'school',
+    type: 'why',
+    question: 'Why do you raise your hand in class?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'To ask a question',
+        imageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'To sleep',
+        imageUrl: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'To run',
+        imageUrl: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'To dance',
+        imageUrl: 'https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'school-why-2',
+    category: 'school',
+    type: 'why',
+    question: 'Why do you go to school?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'To learn',
+        imageUrl: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'To watch TV',
+        imageUrl: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'To cook',
+        imageUrl: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'To swim',
+        imageUrl: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'school-why-3',
+    category: 'school',
+    type: 'why',
+    question: 'Why do you use a pencil?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'To write',
+        imageUrl: 'https://images.unsplash.com/photo-1589998059171-988d887df646?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'To eat',
+        imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'To fly',
+        imageUrl: 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'To jump',
+        imageUrl: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // OTHER - WHO Questions (3)
   {
     id: 'other-who-1',
     category: 'other',
@@ -393,7 +1037,39 @@ export const questions: Question[] = [
       },
     ],
   },
-  // OTHER - WHAT Questions
+  {
+    id: 'other-who-3',
+    category: 'other',
+    type: 'who',
+    question: 'Who helps put out fires?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Firefighter',
+        imageUrl: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Tree',
+        imageUrl: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Cloud',
+        imageUrl: 'https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Ball',
+        imageUrl: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // OTHER - WHAT Questions (3)
   {
     id: 'other-what-1',
     category: 'other',
@@ -458,7 +1134,39 @@ export const questions: Question[] = [
       },
     ],
   },
-  // OTHER - WHERE Questions
+  {
+    id: 'other-what-3',
+    category: 'other',
+    type: 'what',
+    question: 'What helps you see in the dark?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Flashlight',
+        imageUrl: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Banana',
+        imageUrl: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Sock',
+        imageUrl: 'https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Pencil',
+        imageUrl: 'https://images.unsplash.com/photo-1589998059171-988d887df646?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // OTHER - WHERE Questions (3)
   {
     id: 'other-where-1',
     category: 'other',
@@ -523,132 +1231,228 @@ export const questions: Question[] = [
       },
     ],
   },
-  // WHEN Questions
   {
-    id: 'home-when-1',
-    category: 'home',
-    type: 'when',
-    question: 'When do you eat breakfast?',
+    id: 'other-where-3',
+    category: 'other',
+    type: 'where',
+    question: 'Where do you see animals?',
     answers: [
       {
         id: 'a1',
-        text: 'Morning',
-        imageUrl: 'https://images.unsplash.com/photo-1495954484750-af469f2f9be5?w=400',
+        text: 'Zoo',
+        imageUrl: 'https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=400',
         isCorrect: true,
       },
       {
         id: 'a2',
-        text: 'Night',
-        imageUrl: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400',
+        text: 'Library',
+        imageUrl: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=400',
         isCorrect: false,
       },
       {
         id: 'a3',
-        text: 'Afternoon',
+        text: 'Post Office',
+        imageUrl: 'https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'Gas Station',
+        imageUrl: 'https://images.unsplash.com/photo-1545262810-77515befe149?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  // OTHER - WHEN Questions (3)
+  {
+    id: 'other-when-1',
+    category: 'other',
+    type: 'when',
+    question: 'When do you see the stars?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'At Night',
+        imageUrl: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'In the Morning',
+        imageUrl: 'https://images.unsplash.com/photo-1495954484750-af469f2f9be5?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'At Lunch',
+        imageUrl: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'In the Afternoon',
+        imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'other-when-2',
+    category: 'other',
+    type: 'when',
+    question: 'When do you go to the doctor?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'When Sick',
+        imageUrl: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Every Hour',
+        imageUrl: 'https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'While Sleeping',
+        imageUrl: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'During Recess',
+        imageUrl: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400',
+        isCorrect: false,
+      },
+    ],
+  },
+  {
+    id: 'other-when-3',
+    category: 'other',
+    type: 'when',
+    question: 'When do you celebrate your birthday?',
+    answers: [
+      {
+        id: 'a1',
+        text: 'Once a Year',
+        imageUrl: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400',
+        isCorrect: true,
+      },
+      {
+        id: 'a2',
+        text: 'Every Day',
+        imageUrl: 'https://images.unsplash.com/photo-1495954484750-af469f2f9be5?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a3',
+        text: 'Every Month',
         imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',
         isCorrect: false,
       },
       {
         id: 'a4',
-        text: 'Midnight',
+        text: 'Never',
         imageUrl: 'https://images.unsplash.com/photo-1532693322450-2cb5c511067d?w=400',
         isCorrect: false,
       },
     ],
   },
+  // OTHER - WHY Questions (3)
   {
-    id: 'school-when-1',
-    category: 'school',
-    type: 'when',
-    question: 'When do you go to school?',
+    id: 'other-why-1',
+    category: 'other',
+    type: 'why',
+    question: 'Why do you look both ways before crossing?',
     answers: [
       {
         id: 'a1',
-        text: 'Weekday Morning',
-        imageUrl: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400',
+        text: 'To be safe',
+        imageUrl: 'https://images.unsplash.com/photo-1502101872923-d48509bff386?w=400',
         isCorrect: true,
       },
       {
         id: 'a2',
-        text: 'Weekend',
-        imageUrl: 'https://images.unsplash.com/photo-1533854775446-95c4609da544?w=400',
+        text: 'To dance',
+        imageUrl: 'https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=400',
         isCorrect: false,
       },
       {
         id: 'a3',
-        text: 'Night Time',
-        imageUrl: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400',
+        text: 'To sing',
+        imageUrl: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400',
         isCorrect: false,
       },
       {
         id: 'a4',
-        text: 'Vacation',
-        imageUrl: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400',
+        text: 'To sleep',
+        imageUrl: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=400',
         isCorrect: false,
       },
     ],
   },
-  // WHY Questions
   {
-    id: 'home-why-1',
-    category: 'home',
+    id: 'other-why-2',
+    category: 'other',
     type: 'why',
-    question: 'Why do you wear a coat?',
+    question: 'Why do you wear a seatbelt?',
     answers: [
       {
         id: 'a1',
-        text: 'To stay warm',
-        imageUrl: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=400',
+        text: 'To stay safe',
+        imageUrl: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400',
         isCorrect: true,
       },
       {
         id: 'a2',
-        text: 'To swim',
-        imageUrl: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=400',
-        isCorrect: false,
-      },
-      {
-        id: 'a3',
-        text: 'To fly',
-        imageUrl: 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=400',
-        isCorrect: false,
-      },
-      {
-        id: 'a4',
         text: 'To eat',
         imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400',
         isCorrect: false,
       },
+      {
+        id: 'a3',
+        text: 'To read',
+        imageUrl: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400',
+        isCorrect: false,
+      },
+      {
+        id: 'a4',
+        text: 'To play',
+        imageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400',
+        isCorrect: false,
+      },
     ],
   },
   {
-    id: 'school-why-1',
-    category: 'school',
+    id: 'other-why-3',
+    category: 'other',
     type: 'why',
-    question: 'Why do you raise your hand in class?',
+    question: 'Why do you say thank you?',
     answers: [
       {
         id: 'a1',
-        text: 'To ask a question',
+        text: 'To be polite',
         imageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400',
         isCorrect: true,
       },
       {
         id: 'a2',
-        text: 'To sleep',
-        imageUrl: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=400',
-        isCorrect: false,
-      },
-      {
-        id: 'a3',
         text: 'To run',
         imageUrl: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400',
         isCorrect: false,
       },
       {
+        id: 'a3',
+        text: 'To jump',
+        imageUrl: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400',
+        isCorrect: false,
+      },
+      {
         id: 'a4',
-        text: 'To dance',
-        imageUrl: 'https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=400',
+        text: 'To hide',
+        imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400',
         isCorrect: false,
       },
     ],
