@@ -44,6 +44,14 @@ export default function HomeScreen() {
 
   const games = [
     {
+      id: 'ducky-says-talk',
+      title: 'Ducky Says Talk!',
+      description: 'Practice speech with a friendly duck',
+      icon: 'pets',
+      color: '#FFD54F',
+      route: '/ducky-says-talk',
+    },
+    {
       id: 'articulation-game',
       title: 'Articulation Game',
       description: 'Fun games to practice letter sounds and words',
@@ -175,6 +183,7 @@ export default function HomeScreen() {
           <Text style={styles.infoTitle}>How to Use:</Text>
           <Text style={styles.infoText}>
             - WH Questions: Practice answering who, what, when, where, and why questions{'\n'}
+            - Ducky Says Talk: Practice speech with a friendly duck character{'\n'}
             - Articulation Game: Play fun games to practice letter sounds and words{'\n'}
             - Picture Builder: Create colorful designs with shapes{'\n'}
             - Puzzle Match: Find matching pairs to train your brain
