@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,10 @@ import {
   TouchableOpacity,
   ScrollView,
   Platform,
+  Image,
+  Animated,
+  PanResponder,
+  Dimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { colors } from '@/styles/commonStyles';
@@ -14,182 +18,156 @@ import * as Haptics from 'expo-haptics';
 import * as Speech from 'expo-speech';
 import { IconSymbol } from '@/components/IconSymbol';
 
-interface Shape {
-  id: string;
-  type: 'circle' | 'square' | 'triangle' | 'star' | 'heart' | 'diamond';
-  color: string;
-  x: number;
-  y: number;
-  size: number;
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const PUZZLE_SIZE = SCREEN_WIDTH - 80;
+const PIECE_SIZE = PUZZLE_SIZE / 3;
+
+interface PuzzlePiece {
+  id: number;
+  correctPosition: { row: number; col: number };
+  currentPosition: { row: number; col: number };
+  imagePosition: { x: number; y: number };
 }
 
-const availableColors = [
-  colors.primary,
-  colors.secondary,
-  colors.accent,
-  colors.success,
-  '#FF6B6B',
-  '#4ECDC4',
-  '#95E1D3',
-  '#F38181',
-  '#FFD93D',
-  '#6BCF7F',
-];
-
-const shapeTypes: Array<'circle' | 'square' | 'triangle' | 'star' | 'heart' | 'diamond'> = [
-  'circle',
-  'square',
-  'triangle',
-  'star',
-  'heart',
-  'diamond',
+const puzzleImages = [
+  { id: 1, name: 'Rainbow', url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600' },
+  { id: 2, name: 'Sunset', url: 'https://images.unsplash.com/photo-1495954484750-af469f2f9be5?w=600' },
+  { id: 3, name: 'Flower', url: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600' },
+  { id: 4, name: 'Ocean', url: 'https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=600' },
+  { id: 5, name: 'Butterfly', url: 'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=600' },
 ];
 
 export default function LogoBuilderScreen() {
   const router = useRouter();
-  const [shapes, setShapes] = useState<Shape[]>([]);
-  const [selectedColor, setSelectedColor] = useState(colors.primary);
-  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'triangle' | 'star' | 'heart' | 'diamond'>('circle');
-  const [draggedShape, setDraggedShape] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState(puzzleImages[0]);
+  const [pieces, setPieces] = useState<PuzzlePiece[]>([]);
+  const [draggedPiece, setDraggedPiece] = useState<number | null>(null);
+  const [isComplete, setIsComplete] = useState(false);
+  const [showPreview, setShowPreview] = useState(true);
 
-  const addShape = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    Speech.speak(`Added ${selectedShape}`, { rate: 0.85 });
+  useEffect(() => {
+    initializePuzzle();
+  }, [selectedImage]);
+
+  const initializePuzzle = () => {
+    const newPieces: PuzzlePiece[] = [];
+    const positions = [];
     
-    const newShape: Shape = {
-      id: Date.now().toString(),
-      type: selectedShape,
-      color: selectedColor,
-      x: 100 + Math.random() * 100,
-      y: 100 + Math.random() * 100,
-      size: 50 + Math.random() * 30,
-    };
-    
-    setShapes([...shapes, newShape]);
-  };
-
-  const removeShape = (id: string) => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    setShapes(shapes.filter((s) => s.id !== id));
-  };
-
-  const clearCanvas = () => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-    Speech.speak('Canvas cleared', { rate: 0.85 });
-    setShapes([]);
-  };
-
-  const createPicture = () => {
-    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    Speech.speak('Great picture!', { rate: 0.85 });
-  };
-
-  const renderShape = (shape: Shape) => {
-    const shapeStyle = {
-      position: 'absolute' as const,
-      left: shape.x,
-      top: shape.y,
-      width: shape.size,
-      height: shape.size,
-      backgroundColor: shape.color,
-    };
-
-    switch (shape.type) {
-      case 'circle':
-        return (
-          <TouchableOpacity
-            key={shape.id}
-            style={[shapeStyle, { borderRadius: shape.size / 2 }]}
-            onPress={() => removeShape(shape.id)}
-            onLongPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-              removeShape(shape.id);
-            }}
-          />
-        );
-      case 'square':
-        return (
-          <TouchableOpacity
-            key={shape.id}
-            style={[shapeStyle, { borderRadius: 4 }]}
-            onPress={() => removeShape(shape.id)}
-            onLongPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-              removeShape(shape.id);
-            }}
-          />
-        );
-      case 'triangle':
-        return (
-          <TouchableOpacity
-            key={shape.id}
-            style={[
-              shapeStyle,
-              {
-                width: 0,
-                height: 0,
-                backgroundColor: 'transparent',
-                borderStyle: 'solid',
-                borderLeftWidth: shape.size / 2,
-                borderRightWidth: shape.size / 2,
-                borderBottomWidth: shape.size,
-                borderLeftColor: 'transparent',
-                borderRightColor: 'transparent',
-                borderBottomColor: shape.color,
-              },
-            ]}
-            onPress={() => removeShape(shape.id)}
-            onLongPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-              removeShape(shape.id);
-            }}
-          />
-        );
-      case 'star':
-        return (
-          <TouchableOpacity
-            key={shape.id}
-            style={[shapeStyle, { justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }]}
-            onPress={() => removeShape(shape.id)}
-            onLongPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-              removeShape(shape.id);
-            }}
-          >
-            <Text style={{ fontSize: shape.size, color: shape.color }}>★</Text>
-          </TouchableOpacity>
-        );
-      case 'heart':
-        return (
-          <TouchableOpacity
-            key={shape.id}
-            style={[shapeStyle, { justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }]}
-            onPress={() => removeShape(shape.id)}
-            onLongPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-              removeShape(shape.id);
-            }}
-          >
-            <Text style={{ fontSize: shape.size, color: shape.color }}>♥</Text>
-          </TouchableOpacity>
-        );
-      case 'diamond':
-        return (
-          <TouchableOpacity
-            key={shape.id}
-            style={[shapeStyle, { justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }]}
-            onPress={() => removeShape(shape.id)}
-            onLongPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-              removeShape(shape.id);
-            }}
-          >
-            <Text style={{ fontSize: shape.size, color: shape.color }}>◆</Text>
-          </TouchableOpacity>
-        );
-      default:
-        return null;
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        positions.push({ row, col });
+      }
     }
+    
+    const shuffledPositions = positions.sort(() => Math.random() - 0.5);
+    
+    for (let i = 0; i < 9; i++) {
+      const row = Math.floor(i / 3);
+      const col = i % 3;
+      newPieces.push({
+        id: i,
+        correctPosition: { row, col },
+        currentPosition: shuffledPositions[i],
+        imagePosition: { x: col * PIECE_SIZE, y: row * PIECE_SIZE },
+      });
+    }
+    
+    setPieces(newPieces);
+    setIsComplete(false);
+    setShowPreview(true);
+    
+    setTimeout(() => setShowPreview(false), 3000);
+  };
+
+  const swapPieces = (piece1Id: number, piece2Id: number) => {
+    setPieces((prevPieces) => {
+      const newPieces = [...prevPieces];
+      const piece1Index = newPieces.findIndex((p) => p.id === piece1Id);
+      const piece2Index = newPieces.findIndex((p) => p.id === piece2Id);
+      
+      const temp = newPieces[piece1Index].currentPosition;
+      newPieces[piece1Index].currentPosition = newPieces[piece2Index].currentPosition;
+      newPieces[piece2Index].currentPosition = temp;
+      
+      return newPieces;
+    });
+    
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    checkCompletion();
+  };
+
+  const checkCompletion = () => {
+    setTimeout(() => {
+      const allCorrect = pieces.every(
+        (piece) =>
+          piece.currentPosition.row === piece.correctPosition.row &&
+          piece.currentPosition.col === piece.correctPosition.col
+      );
+      
+      if (allCorrect && pieces.length > 0) {
+        setIsComplete(true);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        Speech.speak('Amazing! You completed the puzzle!', { rate: 0.85 });
+      }
+    }, 100);
+  };
+
+  const handlePiecePress = (pieceId: number) => {
+    if (draggedPiece === null) {
+      setDraggedPiece(pieceId);
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    } else {
+      swapPieces(draggedPiece, pieceId);
+      setDraggedPiece(null);
+    }
+  };
+
+  const selectNewImage = (image: typeof puzzleImages[0]) => {
+    setSelectedImage(image);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    Speech.speak(`Let's build a ${image.name}!`, { rate: 0.85 });
+  };
+
+  const renderPuzzlePiece = (piece: PuzzlePiece) => {
+    const isSelected = draggedPiece === piece.id;
+    const isCorrect =
+      piece.currentPosition.row === piece.correctPosition.row &&
+      piece.currentPosition.col === piece.correctPosition.col;
+
+    return (
+      <TouchableOpacity
+        key={piece.id}
+        style={[
+          styles.puzzlePiece,
+          {
+            left: piece.currentPosition.col * PIECE_SIZE,
+            top: piece.currentPosition.row * PIECE_SIZE,
+            width: PIECE_SIZE,
+            height: PIECE_SIZE,
+          },
+          isSelected && styles.selectedPiece,
+          isComplete && isCorrect && styles.correctPiece,
+        ]}
+        onPress={() => handlePiecePress(piece.id)}
+        activeOpacity={0.8}
+      >
+        <Image
+          source={{ uri: selectedImage.url }}
+          style={[
+            styles.pieceImage,
+            {
+              width: PUZZLE_SIZE,
+              height: PUZZLE_SIZE,
+              left: -piece.imagePosition.x,
+              top: -piece.imagePosition.y,
+            },
+          ]}
+        />
+        {!isComplete && (
+          <View style={styles.pieceBorder} />
+        )}
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -208,95 +186,75 @@ export default function LogoBuilderScreen() {
               color={colors.text}
             />
           </TouchableOpacity>
-          <Text style={styles.title}>Picture Builder</Text>
-          <TouchableOpacity style={styles.clearButton} onPress={clearCanvas}>
+          <Text style={styles.title}>Picture Puzzle</Text>
+          <TouchableOpacity
+            style={styles.previewButton}
+            onPress={() => {
+              setShowPreview(!showPreview);
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            }}
+          >
             <IconSymbol
-              ios_icon_name="trash.fill"
-              android_material_icon_name="delete"
+              ios_icon_name={showPreview ? 'eye.slash.fill' : 'eye.fill'}
+              android_material_icon_name={showPreview ? 'visibility_off' : 'visibility'}
               size={24}
-              color={colors.error}
+              color={colors.primary}
             />
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.subtitle}>Create your own picture! Tap shapes to remove them.</Text>
+        <Text style={styles.subtitle}>
+          {isComplete ? '🎉 Puzzle Complete!' : 'Tap pieces to swap and build the picture!'}
+        </Text>
 
-        <View style={styles.canvas}>
-          {shapes.map((shape) => renderShape(shape))}
-          {shapes.length === 0 && (
-            <Text style={styles.canvasPlaceholder}>Tap shapes and colors below to start creating!</Text>
-          )}
+        {showPreview && !isComplete && (
+          <View style={styles.previewContainer}>
+            <Image source={{ uri: selectedImage.url }} style={styles.previewImage} />
+            <Text style={styles.previewText}>Preview</Text>
+          </View>
+        )}
+
+        <View style={styles.puzzleContainer}>
+          <View style={[styles.puzzleBoard, { width: PUZZLE_SIZE, height: PUZZLE_SIZE }]}>
+            {pieces.map((piece) => renderPuzzlePiece(piece))}
+          </View>
         </View>
 
-        <View style={styles.controls}>
-          <Text style={styles.sectionTitle}>Choose Shape:</Text>
-          <View style={styles.shapesRow}>
-            {shapeTypes.map((type, index) => (
-              <React.Fragment key={index}>
-                <TouchableOpacity
-                  style={[
-                    styles.shapeButton,
-                    selectedShape === type && styles.shapeButtonSelected,
-                  ]}
-                  onPress={() => {
-                    setSelectedShape(type);
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                    Speech.speak(type, { rate: 0.85 });
-                  }}
-                >
-                  {type === 'circle' && <View style={styles.shapePreviewCircle} />}
-                  {type === 'square' && <View style={styles.shapePreviewSquare} />}
-                  {type === 'triangle' && <View style={styles.shapePreviewTriangle} />}
-                  {type === 'star' && <Text style={styles.shapePreviewIcon}>★</Text>}
-                  {type === 'heart' && <Text style={styles.shapePreviewIcon}>♥</Text>}
-                  {type === 'diamond' && <Text style={styles.shapePreviewIcon}>◆</Text>}
-                </TouchableOpacity>
-              </React.Fragment>
-            ))}
-          </View>
-
-          <Text style={styles.sectionTitle}>Choose Color:</Text>
-          <View style={styles.colorsRow}>
-            {availableColors.map((color, index) => (
-              <React.Fragment key={index}>
-                <TouchableOpacity
-                  style={[
-                    styles.colorButton,
-                    { backgroundColor: color },
-                    selectedColor === color && styles.colorButtonSelected,
-                  ]}
-                  onPress={() => {
-                    setSelectedColor(color);
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  }}
-                />
-              </React.Fragment>
-            ))}
-          </View>
-
-          <View style={styles.buttonRow}>
-            <TouchableOpacity style={styles.addButton} onPress={addShape}>
+        {isComplete && (
+          <View style={styles.successContainer}>
+            <Text style={styles.successText}>🌟 Great Job! 🌟</Text>
+            <TouchableOpacity style={styles.nextButton} onPress={initializePuzzle}>
               <IconSymbol
-                ios_icon_name="plus.circle.fill"
-                android_material_icon_name="add_circle"
+                ios_icon_name="arrow.clockwise"
+                android_material_icon_name="refresh"
                 size={24}
                 color={colors.card}
               />
-              <Text style={styles.addButtonText}>Add Shape</Text>
+              <Text style={styles.nextButtonText}>Try Again</Text>
             </TouchableOpacity>
-
-            {shapes.length > 0 && (
-              <TouchableOpacity style={styles.saveButton} onPress={createPicture}>
-                <IconSymbol
-                  ios_icon_name="checkmark.circle.fill"
-                  android_material_icon_name="check_circle"
-                  size={24}
-                  color={colors.card}
-                />
-                <Text style={styles.saveButtonText}>Done!</Text>
-              </TouchableOpacity>
-            )}
           </View>
+        )}
+
+        <View style={styles.imageSelector}>
+          <Text style={styles.sectionTitle}>Choose a Picture:</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.imageRow}>
+              {puzzleImages.map((image, index) => (
+                <React.Fragment key={index}>
+                  <TouchableOpacity
+                    style={[
+                      styles.imageOption,
+                      selectedImage.id === image.id && styles.imageOptionSelected,
+                    ]}
+                    onPress={() => selectNewImage(image)}
+                  >
+                    <Image source={{ uri: image.url }} style={styles.optionImage} />
+                    <Text style={styles.optionText}>{image.name}</Text>
+                  </TouchableOpacity>
+                </React.Fragment>
+              ))}
+            </View>
+          </ScrollView>
         </View>
 
         <View style={styles.infoBox}>
@@ -306,7 +264,9 @@ export default function LogoBuilderScreen() {
             size={20}
             color={colors.primary}
           />
-          <Text style={styles.infoText}>Tip: Tap any shape on the canvas to remove it!</Text>
+          <Text style={styles.infoText}>
+            Tap one piece, then tap another to swap them. Build the complete picture!
+          </Text>
         </View>
       </ScrollView>
     </View>
@@ -339,7 +299,7 @@ const styles = StyleSheet.create({
     boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)',
     elevation: 2,
   },
-  clearButton: {
+  previewButton: {
     padding: 8,
     backgroundColor: colors.card,
     borderRadius: 8,
@@ -356,144 +316,136 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     textAlign: 'center',
     marginBottom: 24,
+    fontWeight: '600',
   },
-  canvas: {
-    width: '100%',
-    height: 350,
+  previewContainer: {
+    alignItems: 'center',
+    marginBottom: 24,
     backgroundColor: colors.card,
     borderRadius: 16,
-    marginBottom: 24,
-    position: 'relative',
+    padding: 16,
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
     elevation: 3,
-    justifyContent: 'center',
+  },
+  previewImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 12,
+    marginBottom: 8,
+  },
+  previewText: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: colors.primary,
+  },
+  puzzleContainer: {
     alignItems: 'center',
+    marginBottom: 24,
+  },
+  puzzleBoard: {
+    backgroundColor: colors.card,
+    borderRadius: 16,
+    position: 'relative',
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
+    elevation: 5,
     overflow: 'hidden',
   },
-  canvasPlaceholder: {
-    fontSize: 16,
-    color: colors.textSecondary,
-    textAlign: 'center',
-    paddingHorizontal: 20,
+  puzzlePiece: {
+    position: 'absolute',
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
   },
-  controls: {
+  selectedPiece: {
+    borderWidth: 3,
+    borderColor: colors.primary,
+    zIndex: 10,
+  },
+  correctPiece: {
+    borderWidth: 0,
+  },
+  pieceImage: {
+    position: 'absolute',
+    resizeMode: 'cover',
+  },
+  pieceBorder: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  successContainer: {
+    backgroundColor: colors.success,
+    borderRadius: 16,
+    padding: 24,
+    alignItems: 'center',
+    marginBottom: 24,
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
+    elevation: 5,
+  },
+  successText: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: colors.card,
+    marginBottom: 16,
+  },
+  nextButton: {
+    backgroundColor: colors.card,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  nextButtonText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.success,
+  },
+  imageSelector: {
     backgroundColor: colors.card,
     borderRadius: 16,
     padding: 20,
+    marginBottom: 16,
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
     elevation: 3,
-    marginBottom: 16,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '700',
     color: colors.text,
-    marginBottom: 12,
+    marginBottom: 16,
   },
-  shapesRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    marginBottom: 24,
-  },
-  shapeButton: {
-    width: 60,
-    height: 60,
-    backgroundColor: colors.background,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: 'transparent',
-    marginBottom: 8,
-  },
-  shapeButtonSelected: {
-    borderColor: colors.primary,
-  },
-  shapePreviewCircle: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: colors.textSecondary,
-  },
-  shapePreviewSquare: {
-    width: 30,
-    height: 30,
-    borderRadius: 4,
-    backgroundColor: colors.textSecondary,
-  },
-  shapePreviewTriangle: {
-    width: 0,
-    height: 0,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderLeftWidth: 15,
-    borderRightWidth: 15,
-    borderBottomWidth: 30,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: colors.textSecondary,
-  },
-  shapePreviewIcon: {
-    fontSize: 30,
-    color: colors.textSecondary,
-  },
-  colorsRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    marginBottom: 24,
-  },
-  colorButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    marginBottom: 8,
-    borderWidth: 3,
-    borderColor: 'transparent',
-  },
-  colorButtonSelected: {
-    borderColor: colors.text,
-  },
-  buttonRow: {
+  imageRow: {
     flexDirection: 'row',
     gap: 12,
   },
-  addButton: {
-    flex: 1,
-    backgroundColor: colors.primary,
-    paddingVertical: 16,
-    paddingHorizontal: 24,
+  imageOption: {
+    width: 120,
+    backgroundColor: colors.background,
     borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
-    elevation: 3,
+    overflow: 'hidden',
+    borderWidth: 2,
+    borderColor: 'transparent',
   },
-  addButtonText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.card,
+  imageOptionSelected: {
+    borderColor: colors.primary,
   },
-  saveButton: {
-    flex: 1,
-    backgroundColor: colors.success,
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
-    elevation: 3,
+  optionImage: {
+    width: '100%',
+    height: 100,
+    resizeMode: 'cover',
   },
-  saveButtonText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.card,
+  optionText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.text,
+    textAlign: 'center',
+    padding: 8,
   },
   infoBox: {
     backgroundColor: colors.card,
