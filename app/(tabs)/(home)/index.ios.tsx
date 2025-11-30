@@ -42,30 +42,19 @@ export default function HomeScreen() {
     },
   ];
 
-  const learningTools = [
-    {
-      id: 'articulation',
-      title: 'Articulation (A-Z)',
-      description: 'Practice letter sounds and words',
-      icon: 'text_fields',
-      color: '#FF6B6B',
-      route: '/articulation',
-    },
-    {
-      id: 'daily-words',
-      title: 'Daily Words',
-      description: 'Learn common words for home and school',
-      icon: 'calendar_today',
-      color: '#4ECDC4',
-      route: '/daily-words',
-    },
-  ];
-
   const games = [
     {
+      id: 'articulation-game',
+      title: 'Articulation Game',
+      description: 'Fun games to practice letter sounds and words',
+      icon: 'text_fields',
+      color: '#FF6B6B',
+      route: '/articulation-game',
+    },
+    {
       id: 'logo-builder',
-      title: 'Logo Builder',
-      description: 'Create your own logo designs',
+      title: 'Picture Builder',
+      description: 'Create your own colorful designs',
       icon: 'palette',
       color: '#95E1D3',
       route: '/logo-builder',
@@ -135,40 +124,6 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Learning Tools</Text>
-          <View style={styles.categoriesContainer}>
-            {learningTools.map((tool, index) => (
-              <React.Fragment key={index}>
-                <TouchableOpacity
-                  style={[styles.categoryCard, { borderLeftColor: tool.color }]}
-                  onPress={() => handlePress(tool.route)}
-                  activeOpacity={0.7}
-                >
-                  <View style={[styles.iconContainer, { backgroundColor: tool.color }]}>
-                    <IconSymbol
-                      android_material_icon_name={tool.icon}
-                      ios_icon_name={tool.icon}
-                      size={28}
-                      color={colors.card}
-                    />
-                  </View>
-                  <View style={styles.categoryContent}>
-                    <Text style={styles.categoryTitle}>{tool.title}</Text>
-                    <Text style={styles.categoryDescription}>{tool.description}</Text>
-                  </View>
-                  <IconSymbol
-                    android_material_icon_name="chevron_right"
-                    ios_icon_name="chevron.right"
-                    size={24}
-                    color={colors.textSecondary}
-                  />
-                </TouchableOpacity>
-              </React.Fragment>
-            ))}
-          </View>
-        </View>
-
-        <View style={styles.section}>
           <Text style={styles.sectionTitle}>Fun Games</Text>
           <View style={styles.categoriesContainer}>
             {games.map((game, index) => (
@@ -220,9 +175,8 @@ export default function HomeScreen() {
           <Text style={styles.infoTitle}>How to Use:</Text>
           <Text style={styles.infoText}>
             - WH Questions: Practice answering who, what, when, where, and why questions{'\n'}
-            - Articulation: Learn letter sounds from A to Z{'\n'}
-            - Daily Words: Build vocabulary for home and school{'\n'}
-            - Logo Builder: Create colorful designs{'\n'}
+            - Articulation Game: Play fun games to practice letter sounds and words{'\n'}
+            - Picture Builder: Create colorful designs with shapes{'\n'}
             - Puzzle Match: Find matching pairs to train your brain
           </Text>
         </View>
