@@ -22,6 +22,7 @@ export default function HomeScreen() {
       description: 'Questions about daily activities at home',
       icon: 'home',
       color: colors.primary,
+      route: '/question?category=home',
     },
     {
       id: 'school',
@@ -29,6 +30,7 @@ export default function HomeScreen() {
       description: 'Questions about school and learning',
       icon: 'school',
       color: colors.accent,
+      route: '/question?category=school',
     },
     {
       id: 'other',
@@ -36,11 +38,50 @@ export default function HomeScreen() {
       description: 'Questions about community and other places',
       icon: 'location_on',
       color: colors.secondary,
+      route: '/question?category=other',
     },
   ];
 
-  const handleCategoryPress = (categoryId: string) => {
-    router.push(`/question?category=${categoryId}`);
+  const learningTools = [
+    {
+      id: 'articulation',
+      title: 'Articulation (A-Z)',
+      description: 'Practice letter sounds and words',
+      icon: 'text_fields',
+      color: '#FF6B6B',
+      route: '/articulation',
+    },
+    {
+      id: 'daily-words',
+      title: 'Daily Words',
+      description: 'Learn common words for home and school',
+      icon: 'calendar_today',
+      color: '#4ECDC4',
+      route: '/daily-words',
+    },
+  ];
+
+  const games = [
+    {
+      id: 'logo-builder',
+      title: 'Logo Builder',
+      description: 'Create your own logo designs',
+      icon: 'palette',
+      color: '#95E1D3',
+      route: '/logo-builder',
+    },
+    {
+      id: 'puzzle-match',
+      title: 'Puzzle Match',
+      description: 'Match pairs to train your brain',
+      icon: 'extension',
+      color: '#F38181',
+      route: '/puzzle-match',
+    },
+  ];
+
+  const handlePress = (route: string) => {
+    router.push(route as any);
   };
 
   const handleProgressPress = () => {
@@ -55,39 +96,110 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.header}>
-          <Text style={styles.title}>WH Questions</Text>
-          <Text style={styles.subtitle}>Learn Who, What, When, Where, and Why!</Text>
+          <Text style={styles.title}>Learning Center</Text>
+          <Text style={styles.subtitle}>Choose an activity to start learning!</Text>
         </View>
 
-        <View style={styles.categoriesContainer}>
-          {categories.map((category, index) => (
-            <React.Fragment key={index}>
-              <TouchableOpacity
-                style={[styles.categoryCard, { borderLeftColor: category.color }]}
-                onPress={() => handleCategoryPress(category.id)}
-                activeOpacity={0.7}
-              >
-                <View style={[styles.iconContainer, { backgroundColor: category.color }]}>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>WH Questions</Text>
+          <View style={styles.categoriesContainer}>
+            {categories.map((category, index) => (
+              <React.Fragment key={index}>
+                <TouchableOpacity
+                  style={[styles.categoryCard, { borderLeftColor: category.color }]}
+                  onPress={() => handlePress(category.route)}
+                  activeOpacity={0.7}
+                >
+                  <View style={[styles.iconContainer, { backgroundColor: category.color }]}>
+                    <IconSymbol
+                      android_material_icon_name={category.icon}
+                      ios_icon_name={category.icon}
+                      size={28}
+                      color={colors.card}
+                    />
+                  </View>
+                  <View style={styles.categoryContent}>
+                    <Text style={styles.categoryTitle}>{category.title}</Text>
+                    <Text style={styles.categoryDescription}>{category.description}</Text>
+                  </View>
                   <IconSymbol
-                    android_material_icon_name={category.icon}
-                    ios_icon_name={category.icon}
-                    size={32}
-                    color={colors.card}
+                    android_material_icon_name="chevron_right"
+                    ios_icon_name="chevron.right"
+                    size={24}
+                    color={colors.textSecondary}
                   />
-                </View>
-                <View style={styles.categoryContent}>
-                  <Text style={styles.categoryTitle}>{category.title}</Text>
-                  <Text style={styles.categoryDescription}>{category.description}</Text>
-                </View>
-                <IconSymbol
-                  android_material_icon_name="chevron_right"
-                  ios_icon_name="chevron.right"
-                  size={24}
-                  color={colors.textSecondary}
-                />
-              </TouchableOpacity>
-            </React.Fragment>
-          ))}
+                </TouchableOpacity>
+              </React.Fragment>
+            ))}
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Learning Tools</Text>
+          <View style={styles.categoriesContainer}>
+            {learningTools.map((tool, index) => (
+              <React.Fragment key={index}>
+                <TouchableOpacity
+                  style={[styles.categoryCard, { borderLeftColor: tool.color }]}
+                  onPress={() => handlePress(tool.route)}
+                  activeOpacity={0.7}
+                >
+                  <View style={[styles.iconContainer, { backgroundColor: tool.color }]}>
+                    <IconSymbol
+                      android_material_icon_name={tool.icon}
+                      ios_icon_name={tool.icon}
+                      size={28}
+                      color={colors.card}
+                    />
+                  </View>
+                  <View style={styles.categoryContent}>
+                    <Text style={styles.categoryTitle}>{tool.title}</Text>
+                    <Text style={styles.categoryDescription}>{tool.description}</Text>
+                  </View>
+                  <IconSymbol
+                    android_material_icon_name="chevron_right"
+                    ios_icon_name="chevron.right"
+                    size={24}
+                    color={colors.textSecondary}
+                  />
+                </TouchableOpacity>
+              </React.Fragment>
+            ))}
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Fun Games</Text>
+          <View style={styles.categoriesContainer}>
+            {games.map((game, index) => (
+              <React.Fragment key={index}>
+                <TouchableOpacity
+                  style={[styles.categoryCard, { borderLeftColor: game.color }]}
+                  onPress={() => handlePress(game.route)}
+                  activeOpacity={0.7}
+                >
+                  <View style={[styles.iconContainer, { backgroundColor: game.color }]}>
+                    <IconSymbol
+                      android_material_icon_name={game.icon}
+                      ios_icon_name={game.icon}
+                      size={28}
+                      color={colors.card}
+                    />
+                  </View>
+                  <View style={styles.categoryContent}>
+                    <Text style={styles.categoryTitle}>{game.title}</Text>
+                    <Text style={styles.categoryDescription}>{game.description}</Text>
+                  </View>
+                  <IconSymbol
+                    android_material_icon_name="chevron_right"
+                    ios_icon_name="chevron.right"
+                    size={24}
+                    color={colors.textSecondary}
+                  />
+                </TouchableOpacity>
+              </React.Fragment>
+            ))}
+          </View>
         </View>
 
         <TouchableOpacity
@@ -105,13 +217,13 @@ export default function HomeScreen() {
         </TouchableOpacity>
 
         <View style={styles.infoCard}>
-          <Text style={styles.infoTitle}>How to Play:</Text>
+          <Text style={styles.infoTitle}>How to Use:</Text>
           <Text style={styles.infoText}>
-            - Choose a category to start{'\n'}
-            - Read the question carefully{'\n'}
-            - Look at all four pictures{'\n'}
-            - Tap the picture that answers the question{'\n'}
-            - Get instant feedback on your answer!
+            - WH Questions: Practice answering who, what, when, where, and why questions{'\n'}
+            - Articulation: Learn letter sounds from A to Z{'\n'}
+            - Daily Words: Build vocabulary for home and school{'\n'}
+            - Logo Builder: Create colorful designs{'\n'}
+            - Puzzle Match: Find matching pairs to train your brain
           </Text>
         </View>
       </ScrollView>
@@ -147,14 +259,23 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     textAlign: 'center',
   },
-  categoriesContainer: {
+  section: {
     marginBottom: 24,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: colors.text,
+    marginBottom: 12,
+  },
+  categoriesContainer: {
+    marginBottom: 8,
   },
   categoryCard: {
     backgroundColor: colors.card,
     borderRadius: 16,
-    padding: 20,
-    marginBottom: 16,
+    padding: 16,
+    marginBottom: 12,
     flexDirection: 'row',
     alignItems: 'center',
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
@@ -162,26 +283,26 @@ const styles = StyleSheet.create({
     borderLeftWidth: 6,
   },
   iconContainer: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 16,
+    marginRight: 12,
   },
   categoryContent: {
     flex: 1,
   },
   categoryTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '700',
     color: colors.text,
     marginBottom: 4,
   },
   categoryDescription: {
-    fontSize: 14,
+    fontSize: 13,
     color: colors.textSecondary,
-    lineHeight: 20,
+    lineHeight: 18,
   },
   progressButton: {
     backgroundColor: colors.primary,
