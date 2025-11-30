@@ -8,9 +8,9 @@ export interface ArticulationWord {
 export const articulationWords: ArticulationWord[] = [
   // A words
   { letter: 'A', word: 'Apple', imageUrl: 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400' },
-  { letter: 'A', word: 'Ant', imageUrl: 'https://images.unsplash.com/photo-1564760055775-d63b17a55c44?w=400' },
-  { letter: 'A', word: 'Arm', imageUrl: 'https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=400' },
-  { letter: 'A', word: 'Ask', imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400' },
+  { letter: 'A', word: 'Ant', imageUrl: 'https://images.unsplash.com/photo-1516534775068-ba3e7458af70?w=400&q=80' },
+  { letter: 'A', word: 'Arm', imageUrl: 'https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=400&q=80' },
+  { letter: 'A', word: 'Ask', imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80' },
   
   // B words
   { letter: 'B', word: 'Ball', imageUrl: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=400' },
@@ -24,25 +24,25 @@ export const articulationWords: ArticulationWord[] = [
   { letter: 'C', word: 'Car', imageUrl: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400' },
   { letter: 'C', word: 'Cup', imageUrl: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400' },
   { letter: 'C', word: 'Cake', imageUrl: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400' },
-  { letter: 'C', word: 'Chair', imageUrl: 'https://images.unsplash.com/photo-1503602642458-232111445657?w=400' },
+  { letter: 'C', word: 'Chair', imageUrl: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&q=80' },
   
   // D words
   { letter: 'D', word: 'Dog', imageUrl: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400' },
-  { letter: 'D', word: 'Door', imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400' },
+  { letter: 'D', word: 'Door', imageUrl: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=400&q=80' },
   { letter: 'D', word: 'Desk', imageUrl: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=400' },
   { letter: 'D', word: 'Duck', imageUrl: 'https://images.unsplash.com/photo-1551244072-5d12893278ab?w=400' },
-  { letter: 'D', word: 'Doll', imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400' },
+  { letter: 'D', word: 'Doll', imageUrl: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=400&q=80' },
   
   // E words
   { letter: 'E', word: 'Egg', imageUrl: 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=400' },
-  { letter: 'E', word: 'Ear', imageUrl: 'https://images.unsplash.com/photo-1591258739299-5b65d5cbb235?w=400' },
-  { letter: 'E', word: 'Eye', imageUrl: 'https://images.unsplash.com/photo-1516534775068-ba3e7458af70?w=400' },
+  { letter: 'E', word: 'Ear', imageUrl: 'https://images.unsplash.com/photo-1591258739299-5b65d5cbb235?w=400&q=80' },
+  { letter: 'E', word: 'Eye', imageUrl: 'https://images.unsplash.com/photo-1585763905971-f0ca77f0d7c6?w=400&q=80' },
   { letter: 'E', word: 'Eat', imageUrl: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400' },
   
   // F words
   { letter: 'F', word: 'Fish', imageUrl: 'https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=400' },
   { letter: 'F', word: 'Flower', imageUrl: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400' },
-  { letter: 'F', word: 'Fork', imageUrl: 'https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=400' },
+  { letter: 'F', word: 'Fork', imageUrl: 'https://images.unsplash.com/photo-1577219491135-ce391730fb4c?w=400&q=80' },
   { letter: 'F', word: 'Foot', imageUrl: 'https://images.unsplash.com/photo-1520923642038-b4259acecbd7?w=400' },
   { letter: 'F', word: 'Friend', imageUrl: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400' },
   
