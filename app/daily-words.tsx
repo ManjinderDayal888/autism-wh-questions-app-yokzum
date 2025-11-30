@@ -18,7 +18,7 @@ import { IconSymbol } from '@/components/IconSymbol';
 
 export default function DailyWordsScreen() {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState<'home' | 'school'>('home');
+  const [selectedCategory, setSelectedCategory] = useState<'single' | 'home' | 'school'>('single');
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
@@ -83,6 +83,29 @@ export default function DailyWordsScreen() {
         <Text style={styles.subtitle}>Learn common words for daily routines</Text>
 
         <View style={styles.categorySelector}>
+          <TouchableOpacity
+            style={[
+              styles.categoryButton,
+              selectedCategory === 'single' && styles.categoryButtonActive,
+            ]}
+            onPress={() => setSelectedCategory('single')}
+          >
+            <IconSymbol
+              ios_icon_name="hand.point.up.fill"
+              android_material_icon_name="touch_app"
+              size={20}
+              color={selectedCategory === 'single' ? colors.card : colors.text}
+            />
+            <Text
+              style={[
+                styles.categoryButtonText,
+                selectedCategory === 'single' && styles.categoryButtonTextActive,
+              ]}
+            >
+              Single
+            </Text>
+          </TouchableOpacity>
+
           <TouchableOpacity
             style={[
               styles.categoryButton,
@@ -209,24 +232,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 24,
-    gap: 12,
+    gap: 8,
   },
   categoryButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
     backgroundColor: colors.card,
     borderRadius: 12,
     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
     elevation: 2,
-    gap: 8,
+    gap: 6,
   },
   categoryButtonActive: {
     backgroundColor: colors.primary,
   },
   categoryButtonText: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '700',
     color: colors.text,
   },

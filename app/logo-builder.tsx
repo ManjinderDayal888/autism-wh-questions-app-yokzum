@@ -11,11 +11,12 @@ import {
 import { useRouter } from 'expo-router';
 import { colors } from '@/styles/commonStyles';
 import * as Haptics from 'expo-haptics';
+import * as Speech from 'expo-speech';
 import { IconSymbol } from '@/components/IconSymbol';
 
 interface Shape {
   id: string;
-  type: 'circle' | 'square' | 'triangle' | 'star';
+  type: 'circle' | 'square' | 'triangle' | 'star' | 'heart' | 'diamond';
   color: string;
   x: number;
   y: number;
@@ -31,34 +32,56 @@ const availableColors = [
   '#4ECDC4',
   '#95E1D3',
   '#F38181',
+  '#FFD93D',
+  '#6BCF7F',
 ];
 
-const shapeTypes: Array<'circle' | 'square' | 'triangle' | 'star'> = ['circle', 'square', 'triangle', 'star'];
+const shapeTypes: Array<'circle' | 'square' | 'triangle' | 'star' | 'heart' | 'diamond'> = [
+  'circle',
+  'square',
+  'triangle',
+  'star',
+  'heart',
+  'diamond',
+];
 
 export default function LogoBuilderScreen() {
   const router = useRouter();
   const [shapes, setShapes] = useState<Shape[]>([]);
   const [selectedColor, setSelectedColor] = useState(colors.primary);
-  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'triangle' | 'star'>('circle');
+  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'triangle' | 'star' | 'heart' | 'diamond'>('circle');
+  const [draggedShape, setDraggedShape] = useState<string | null>(null);
 
   const addShape = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    Speech.speak(`Added ${selectedShape}`, { rate: 0.85 });
     
     const newShape: Shape = {
       id: Date.now().toString(),
       type: selectedShape,
       color: selectedColor,
-      x: Math.random() * 200,
-      y: Math.random() * 200,
-      size: 40 + Math.random() * 40,
+      x: 100 + Math.random() * 100,
+      y: 100 + Math.random() * 100,
+      size: 50 + Math.random() * 30,
     };
     
     setShapes([...shapes, newShape]);
   };
 
+  const removeShape = (id: string) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setShapes(shapes.filter((s) => s.id !== id));
+  };
+
   const clearCanvas = () => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+    Speech.speak('Canvas cleared', { rate: 0.85 });
     setShapes([]);
+  };
+
+  const createPicture = () => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    Speech.speak('Great picture!', { rate: 0.85 });
   };
 
   const renderShape = (shape: Shape) => {
@@ -74,21 +97,31 @@ export default function LogoBuilderScreen() {
     switch (shape.type) {
       case 'circle':
         return (
-          <View
+          <TouchableOpacity
             key={shape.id}
             style={[shapeStyle, { borderRadius: shape.size / 2 }]}
+            onPress={() => removeShape(shape.id)}
+            onLongPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+              removeShape(shape.id);
+            }}
           />
         );
       case 'square':
         return (
-          <View
+          <TouchableOpacity
             key={shape.id}
             style={[shapeStyle, { borderRadius: 4 }]}
+            onPress={() => removeShape(shape.id)}
+            onLongPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+              removeShape(shape.id);
+            }}
           />
         );
       case 'triangle':
         return (
-          <View
+          <TouchableOpacity
             key={shape.id}
             style={[
               shapeStyle,
@@ -105,13 +138,54 @@ export default function LogoBuilderScreen() {
                 borderBottomColor: shape.color,
               },
             ]}
+            onPress={() => removeShape(shape.id)}
+            onLongPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+              removeShape(shape.id);
+            }}
           />
         );
       case 'star':
         return (
-          <View key={shape.id} style={[shapeStyle, { justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }]}>
+          <TouchableOpacity
+            key={shape.id}
+            style={[shapeStyle, { justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }]}
+            onPress={() => removeShape(shape.id)}
+            onLongPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+              removeShape(shape.id);
+            }}
+          >
             <Text style={{ fontSize: shape.size, color: shape.color }}>★</Text>
-          </View>
+          </TouchableOpacity>
+        );
+      case 'heart':
+        return (
+          <TouchableOpacity
+            key={shape.id}
+            style={[shapeStyle, { justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }]}
+            onPress={() => removeShape(shape.id)}
+            onLongPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+              removeShape(shape.id);
+            }}
+          >
+            <Text style={{ fontSize: shape.size, color: shape.color }}>♥</Text>
+          </TouchableOpacity>
+        );
+      case 'diamond':
+        return (
+          <TouchableOpacity
+            key={shape.id}
+            style={[shapeStyle, { justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }]}
+            onPress={() => removeShape(shape.id)}
+            onLongPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+              removeShape(shape.id);
+            }}
+          >
+            <Text style={{ fontSize: shape.size, color: shape.color }}>◆</Text>
+          </TouchableOpacity>
         );
       default:
         return null;
@@ -134,7 +208,7 @@ export default function LogoBuilderScreen() {
               color={colors.text}
             />
           </TouchableOpacity>
-          <Text style={styles.title}>Logo Builder</Text>
+          <Text style={styles.title}>Picture Builder</Text>
           <TouchableOpacity style={styles.clearButton} onPress={clearCanvas}>
             <IconSymbol
               ios_icon_name="trash.fill"
@@ -145,12 +219,12 @@ export default function LogoBuilderScreen() {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.subtitle}>Create your own logo design!</Text>
+        <Text style={styles.subtitle}>Create your own picture! Tap shapes to remove them.</Text>
 
         <View style={styles.canvas}>
           {shapes.map((shape) => renderShape(shape))}
           {shapes.length === 0 && (
-            <Text style={styles.canvasPlaceholder}>Tap shapes and colors below to start!</Text>
+            <Text style={styles.canvasPlaceholder}>Tap shapes and colors below to start creating!</Text>
           )}
         </View>
 
@@ -167,14 +241,15 @@ export default function LogoBuilderScreen() {
                   onPress={() => {
                     setSelectedShape(type);
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    Speech.speak(type, { rate: 0.85 });
                   }}
                 >
                   {type === 'circle' && <View style={styles.shapePreviewCircle} />}
                   {type === 'square' && <View style={styles.shapePreviewSquare} />}
-                  {type === 'triangle' && (
-                    <View style={styles.shapePreviewTriangle} />
-                  )}
-                  {type === 'star' && <Text style={styles.starPreview}>★</Text>}
+                  {type === 'triangle' && <View style={styles.shapePreviewTriangle} />}
+                  {type === 'star' && <Text style={styles.shapePreviewIcon}>★</Text>}
+                  {type === 'heart' && <Text style={styles.shapePreviewIcon}>♥</Text>}
+                  {type === 'diamond' && <Text style={styles.shapePreviewIcon}>◆</Text>}
                 </TouchableOpacity>
               </React.Fragment>
             ))}
@@ -199,15 +274,39 @@ export default function LogoBuilderScreen() {
             ))}
           </View>
 
-          <TouchableOpacity style={styles.addButton} onPress={addShape}>
-            <IconSymbol
-              ios_icon_name="plus.circle.fill"
-              android_material_icon_name="add_circle"
-              size={24}
-              color={colors.card}
-            />
-            <Text style={styles.addButtonText}>Add Shape</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonRow}>
+            <TouchableOpacity style={styles.addButton} onPress={addShape}>
+              <IconSymbol
+                ios_icon_name="plus.circle.fill"
+                android_material_icon_name="add_circle"
+                size={24}
+                color={colors.card}
+              />
+              <Text style={styles.addButtonText}>Add Shape</Text>
+            </TouchableOpacity>
+
+            {shapes.length > 0 && (
+              <TouchableOpacity style={styles.saveButton} onPress={createPicture}>
+                <IconSymbol
+                  ios_icon_name="checkmark.circle.fill"
+                  android_material_icon_name="check_circle"
+                  size={24}
+                  color={colors.card}
+                />
+                <Text style={styles.saveButtonText}>Done!</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+
+        <View style={styles.infoBox}>
+          <IconSymbol
+            ios_icon_name="info.circle.fill"
+            android_material_icon_name="info"
+            size={20}
+            color={colors.primary}
+          />
+          <Text style={styles.infoText}>Tip: Tap any shape on the canvas to remove it!</Text>
         </View>
       </ScrollView>
     </View>
@@ -260,7 +359,7 @@ const styles = StyleSheet.create({
   },
   canvas: {
     width: '100%',
-    height: 300,
+    height: 350,
     backgroundColor: colors.card,
     borderRadius: 16,
     marginBottom: 24,
@@ -269,11 +368,13 @@ const styles = StyleSheet.create({
     elevation: 3,
     justifyContent: 'center',
     alignItems: 'center',
+    overflow: 'hidden',
   },
   canvasPlaceholder: {
     fontSize: 16,
     color: colors.textSecondary,
     textAlign: 'center',
+    paddingHorizontal: 20,
   },
   controls: {
     backgroundColor: colors.card,
@@ -281,6 +382,7 @@ const styles = StyleSheet.create({
     padding: 20,
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
     elevation: 3,
+    marginBottom: 16,
   },
   sectionTitle: {
     fontSize: 18,
@@ -290,6 +392,7 @@ const styles = StyleSheet.create({
   },
   shapesRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-around',
     marginBottom: 24,
   },
@@ -302,6 +405,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 2,
     borderColor: 'transparent',
+    marginBottom: 8,
   },
   shapeButtonSelected: {
     borderColor: colors.primary,
@@ -330,7 +434,7 @@ const styles = StyleSheet.create({
     borderRightColor: 'transparent',
     borderBottomColor: colors.textSecondary,
   },
-  starPreview: {
+  shapePreviewIcon: {
     fontSize: 30,
     color: colors.textSecondary,
   },
@@ -351,7 +455,12 @@ const styles = StyleSheet.create({
   colorButtonSelected: {
     borderColor: colors.text,
   },
+  buttonRow: {
+    flexDirection: 'row',
+    gap: 12,
+  },
   addButton: {
+    flex: 1,
     backgroundColor: colors.primary,
     paddingVertical: 16,
     paddingHorizontal: 24,
@@ -364,8 +473,41 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   addButtonText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     color: colors.card,
+  },
+  saveButton: {
+    flex: 1,
+    backgroundColor: colors.success,
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
+    elevation: 3,
+  },
+  saveButtonText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: colors.card,
+  },
+  infoBox: {
+    backgroundColor: colors.card,
+    borderRadius: 12,
+    padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.1)',
+    elevation: 2,
+  },
+  infoText: {
+    flex: 1,
+    fontSize: 14,
+    color: colors.textSecondary,
   },
 });

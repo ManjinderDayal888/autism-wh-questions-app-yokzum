@@ -2,11 +2,43 @@
 export interface DailyWord {
   id: string;
   word: string;
-  category: 'home' | 'school';
+  category: 'home' | 'school' | 'single';
   imageUrl: string;
 }
 
 export const dailyWords: DailyWord[] = [
+  // Single Common Words (One-word commands/expressions)
+  { id: 'sw1', word: 'Yes', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400' },
+  { id: 'sw2', word: 'No', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400' },
+  { id: 'sw3', word: 'Please', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=400' },
+  { id: 'sw4', word: 'Thanks', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1591035897819-f4bdf739f446?w=400' },
+  { id: 'sw5', word: 'Help', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400' },
+  { id: 'sw6', word: 'More', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400' },
+  { id: 'sw7', word: 'Stop', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1615486511262-2f8f8e7f1f1f?w=400' },
+  { id: 'sw8', word: 'Go', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1502101872923-d48509bff386?w=400' },
+  { id: 'sw9', word: 'Wait', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1501139083538-0139583c060f?w=400' },
+  { id: 'sw10', word: 'Come', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400' },
+  { id: 'sw11', word: 'Look', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1516534775068-ba3e7458af70?w=400' },
+  { id: 'sw12', word: 'Listen', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400' },
+  { id: 'sw13', word: 'Sit', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400' },
+  { id: 'sw14', word: 'Stand', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400' },
+  { id: 'sw15', word: 'Walk', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1502101872923-d48509bff386?w=400' },
+  { id: 'sw16', word: 'Run', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400' },
+  { id: 'sw17', word: 'Jump', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400' },
+  { id: 'sw18', word: 'Open', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400' },
+  { id: 'sw19', word: 'Close', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400' },
+  { id: 'sw20', word: 'Give', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400' },
+  { id: 'sw21', word: 'Take', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400' },
+  { id: 'sw22', word: 'Eat', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400' },
+  { id: 'sw23', word: 'Drink', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=400' },
+  { id: 'sw24', word: 'Sleep', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=400' },
+  { id: 'sw25', word: 'Wake', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1495954484750-af469f2f9be5?w=400' },
+  { id: 'sw26', word: 'Hot', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1495954484750-af469f2f9be5?w=400' },
+  { id: 'sw27', word: 'Cold', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1483664852095-d6cc6870702d?w=400' },
+  { id: 'sw28', word: 'Happy', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400' },
+  { id: 'sw29', word: 'Sad', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400' },
+  { id: 'sw30', word: 'Hungry', category: 'single', imageUrl: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400' },
+  
   // Home Words
   { id: 'h1', word: 'Breakfast', category: 'home', imageUrl: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400' },
   { id: 'h2', word: 'Lunch', category: 'home', imageUrl: 'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400' },
